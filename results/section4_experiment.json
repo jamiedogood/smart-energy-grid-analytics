@@ -1,0 +1,38 @@
+{
+  "timescaledb_version": "2.30.2",
+  "chunk_compression_call": "convert_to_columnstore",
+  "experiment_start_cat": "2026-10-14T22:46:58+02:00",
+  "cutoff_cat": "2026-10-12T22:46:58+02:00",
+  "tables": {
+    "energy_time_compressed": {
+      "segmentby": null,
+      "orderby": "event_time DESC",
+      "policy_job_id": 1000,
+      "settings_api": "columnstore settings (enable_columnstore / orderby / segmentby)"
+    },
+    "energy_meter_compressed": {
+      "segmentby": "meter_id",
+      "orderby": "event_time DESC",
+      "policy_job_id": 1001,
+      "settings_api": "columnstore settings (enable_columnstore / orderby / segmentby)"
+    }
+  },
+  "summary": [
+    {
+      "table": "energy_meter_compressed",
+      "chunks": 29,
+      "compressed_chunks": 29,
+      "rows": 10643735,
+      "total_load_s": 56.44,
+      "total_compress_s": 64.1
+    },
+    {
+      "table": "energy_time_compressed",
+      "chunks": 29,
+      "compressed_chunks": 29,
+      "rows": 10643735,
+      "total_load_s": 73.6,
+      "total_compress_s": 24.82
+    }
+  ]
+}

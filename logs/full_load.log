@@ -1,0 +1,26 @@
+2026-10-14 09:17:44 INFO dataset_info(): {"generator_version": "3.0", "meters": 4000, "days": 28, "minutes_between_readings": 15, "timezone": "CAT", "start_inclusive": "2026-09-01T00:00:00+02:00", "end_exclusive": "2026-09-29T00:00:00+02:00", "planned_readings": 10752000, "reading_fields": ["meter_id", "event_time", "received_time", "power_kw", "voltage_v", "current_a", "frequency_hz", "energy_kwh"], "expected_counts": {"emitted_readings": 10696848, "unique_readings": 10643735, "duplicate_readings": 53113, "delayed_unique_readings": 213090, "missing_readings": 108265}}
+2026-10-14 09:17:44 INFO Expected emitted_readings: 10696848
+2026-10-14 09:17:44 INFO energy_readings is empty - starting fresh iter_readings()
+2026-10-14 09:17:51 INFO progress: consumed=1000000 committed=1000000 (9.3%) 136886 rows/s ETA 71 s
+2026-10-14 09:18:00 INFO progress: consumed=2000000 committed=2000000 (18.7%) 127163 rows/s ETA 68 s
+2026-10-14 09:18:07 INFO progress: consumed=3000000 committed=3000000 (28.0%) 128359 rows/s ETA 60 s
+2026-10-14 09:18:15 INFO progress: consumed=4000000 committed=4000000 (37.4%) 129453 rows/s ETA 52 s
+2026-10-14 09:18:24 INFO progress: consumed=5000000 committed=5000000 (46.7%) 124827 rows/s ETA 46 s
+2026-10-14 09:18:35 INFO progress: consumed=6000000 committed=6000000 (56.1%) 118295 rows/s ETA 40 s
+2026-10-14 09:18:44 INFO progress: consumed=7000000 committed=7000000 (65.4%) 116240 rows/s ETA 32 s
+2026-10-14 09:18:53 INFO progress: consumed=8000000 committed=8000000 (74.8%) 115677 rows/s ETA 23 s
+2026-10-14 09:19:06 INFO progress: consumed=9000000 committed=9000000 (84.1%) 109145 rows/s ETA 16 s
+2026-10-14 09:19:17 INFO progress: consumed=10000000 committed=10000000 (93.5%) 107642 rows/s ETA 6 s
+2026-10-14 09:19:24 INFO progress: consumed=10696848 committed=10696848 (100.0%) 107105 rows/s ETA 0 s
+2026-10-14 09:19:25 INFO ================================================================
+2026-10-14 09:19:25 INFO Ingestion route                          : direct database writer (COPY, 100000-row batches)
+2026-10-14 09:19:25 INFO Dictionaries consumed from generator     : 10696848
+2026-10-14 09:19:25 INFO Committed rows in energy_readings (query): 10696848
+2026-10-14 09:19:25 INFO Expected emitted_readings                : 10696848
+2026-10-14 09:19:25 INFO All three agree                          : True
+2026-10-14 09:19:25 INFO Generation started (CAT)                 : 2026-10-14T09:17:44+02:00
+2026-10-14 09:19:25 INFO First database write (CAT)               : 2026-10-14T09:17:44+02:00
+2026-10-14 09:19:25 INFO Final commit (CAT)                       : 2026-10-14T09:19:24+02:00
+2026-10-14 09:19:25 INFO Total elapsed seconds (start -> commit)  : 99.9
+2026-10-14 09:19:25 INFO Load seconds (first write -> commit)     : 99.9
+2026-10-14 09:19:25 INFO ================================================================

@@ -1,0 +1,12 @@
+{
+  "route": "direct database writer, COPY",
+  "batch_rows": 100000,
+  "consumed": 10696848,
+  "db_rows": 10696848,
+  "expected_emitted": 10696848,
+  "generation_start_cat": "2026-10-14T09:17:44+02:00",
+  "first_write_cat": "2026-10-14T09:17:44+02:00",
+  "final_commit_cat": "2026-10-14T09:19:24+02:00",
+  "total_elapsed_s": 99.9,
+  "load_s": 99.9
+}

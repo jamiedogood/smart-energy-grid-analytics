@@ -1,0 +1,12 @@
+2026-10-14 08:49:37 INFO Connected to broker emqx:1883
+2026-10-14 08:49:37 INFO progress: taken=500 acked so far=7
+2026-10-14 08:49:37 INFO progress: taken=1000 acked so far=27
+2026-10-14 08:49:37 INFO progress: taken=1500 acked so far=37
+2026-10-14 08:49:37 INFO progress: taken=2000 acked so far=50
+2026-10-14 08:49:37 INFO ============================================================
+2026-10-14 08:49:37 INFO Dictionaries taken from generator : 2000
+2026-10-14 08:49:37 INFO Messages handed to MQTT client    : 2000
+2026-10-14 08:49:37 INFO publish() errors                  : 0
+2026-10-14 08:49:37 INFO Messages acknowledged by broker   : 2000
+2026-10-14 08:49:37 INFO Elapsed seconds                   : 0.37
+2026-10-14 08:49:37 INFO ============================================================

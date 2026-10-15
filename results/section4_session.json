@@ -1,0 +1,17 @@
+{
+  "label": "section4",
+  "tables": [
+    "energy_readings",
+    "energy_readings_3h",
+    "energy_readings_week",
+    "energy_time_compressed",
+    "energy_meter_compressed"
+  ],
+  "machine": "laptop-i7-1165G7-16GB",
+  "client": "psycopg 3.2.3 (Python, app container)",
+  "timer": "time.perf_counter",
+  "cache_state": "warm (1 warm-up before 5 measured runs)",
+  "session_start_cat": "2026-10-14T23:50:18.027+02:00",
+  "session_end_cat": "2026-10-14T23:52:40.463+02:00",
+  "session_seconds": 142.46
+}

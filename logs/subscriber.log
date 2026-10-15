@@ -1,0 +1,45 @@
+2026-10-14 08:43:23 INFO Connected to broker emqx:1883
+2026-10-14 08:43:23 INFO Subscribed to energy/meters/#, granted QoS [1]
+2026-10-14 08:43:23 INFO energy_live rows at start: 0
+2026-10-14 08:43:23 INFO READY - start the publisher now (stops after 15 s without messages)
+2026-10-14 08:49:37 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:38 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:38 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:39 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:39 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:40 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:40 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:41 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:42 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:42 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:43 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:43 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:44 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:44 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:45 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:45 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:46 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:46 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:47 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:47 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:48 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:48 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:49 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:49 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:50 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:50 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:51 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:51 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:52 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:52 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:53 INFO progress: received=2000 inserted=2000
+2026-10-14 08:49:53 INFO No messages for 15 s - finishing
+2026-10-14 08:49:53 INFO ============================================================
+2026-10-14 08:49:53 INFO Messages received by subscriber : 2000
+2026-10-14 08:49:53 INFO   of which flagged as redelivery: 0
+2026-10-14 08:49:53 INFO Parsed OK                       : 2000
+2026-10-14 08:49:53 INFO Parse errors                    : 0
+2026-10-14 08:49:53 INFO Rows inserted and committed     : 2000
+2026-10-14 08:49:53 INFO Rows in failed insert batches   : 0
+2026-10-14 08:49:53 INFO energy_live row count (query)   : 2000
+2026-10-14 08:49:53 INFO ============================================================

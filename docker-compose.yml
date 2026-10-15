@@ -1,0 +1,88 @@
+# Smart Energy Grid Analytics - infrastructure
+# Start:  docker compose up -d
+# Stop:   docker compose stop        (keeps data)
+# Status: docker compose ps
+name: smartgrid
+
+services:
+  # EMQX = MQTT broker (the "post office")
+  emqx:
+    image: emqx/emqx:5.8.6
+    container_name: emqx
+    ports:
+      - "1883:1883"                 # MQTT over TCP
+      - "18083:18083"               # Web dashboard: http://localhost:18083 (admin)
+    environment:
+      EMQX_NODE__NAME: emqx@127.0.0.1
+      EMQX_DASHBOARD__DEFAULT_PASSWORD: ${EMQX_DASHBOARD_PASSWORD:?Set EMQX_DASHBOARD_PASSWORD in .env}
+    volumes:
+      - emqx_data:/opt/emqx/data
+    restart: unless-stopped
+
+  # PostgreSQL + TimescaleDB = time-series warehouse
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: timescaledb
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${PG_PASSWORD:?Set PG_PASSWORD in .env}
+      TZ: Africa/Kigali
+      PGTZ: Africa/Kigali
+      TS_TUNE_MEMORY: 4GB
+      TS_TUNE_NUM_CPUS: "4"
+    shm_size: 1g
+    cpus: 4
+    mem_limit: 4g
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./sql:/sql
+    restart: unless-stopped
+
+  # app = Python workspace. Run scripts with: docker compose exec app python src/<script>.py
+  app:
+    build: .
+    container_name: app
+    environment:
+      TZ: Africa/Kigali
+      MQTT_HOST: emqx
+      MQTT_PORT: "1883"
+      PGHOST: timescaledb
+      PGPORT: "5432"
+      PGUSER: postgres
+      PGPASSWORD: ${PG_PASSWORD:?Set PG_PASSWORD in .env}
+      PGDATABASE: ${PG_DATABASE:-smartgrid}
+      PGOPTIONS: "-c timezone=Africa/Kigali"
+    volumes:
+      - ./:/app
+    depends_on:
+      - emqx
+      - timescaledb
+    restart: unless-stopped
+
+  # Grafana = dashboards (Section 7). Datasource + dashboards provisioned from ./grafana
+  # Open http://localhost:3000 (admin / GRAFANA_ADMIN_PASSWORD; anonymous viewers allowed)
+  grafana:
+    image: grafana/grafana-oss:11.3.0
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?Set GRAFANA_ADMIN_PASSWORD in .env}
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+      GF_DATE_FORMATS_DEFAULT_TIMEZONE: Africa/Kigali
+      PG_PASSWORD: ${PG_PASSWORD:?Set PG_PASSWORD in .env}
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/etc/grafana/dashboards
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - timescaledb
+    restart: unless-stopped
+
+volumes:
+  emqx_data:
+  pg_data:
+  grafana_data:

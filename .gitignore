@@ -1,0 +1,11 @@
+# secrets
+.env
+
+# large generated data (regenerate with the capture scripts - see README)
+data/
+*.csv
+
+# python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

@@ -1,0 +1,319 @@
+{
+  "uid": "smartgrid-aggregate",
+  "title": "Aggregate",
+  "timezone": "Africa/Kigali",
+  "editable": false,
+  "schemaVersion": 39,
+  "time": {
+    "from": "2026-09-21T22:00:00.000Z",
+    "to": "2026-09-28T22:00:00.000Z"
+  },
+  "refresh": "",
+  "tags": [
+    "section7"
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "meter",
+        "label": "Meter",
+        "type": "query",
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "smartgrid-pg"
+        },
+        "query": "SELECT meter_id FROM meters ORDER BY meter_id",
+        "definition": "SELECT meter_id FROM meters ORDER BY meter_id",
+        "refresh": 1,
+        "current": {
+          "text": "1000000000",
+          "value": "1000000000"
+        }
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "P1 - Hourly energy by region (kWh)",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "smartgrid-pg"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 9
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "smartgrid-pg"
+          },
+          "editorMode": "code",
+          "rawQuery": true,
+          "format": "time_series",
+          "rawSql": "-- panel: P1 (agg)\nSELECT bucket AS time, region AS metric, energy_kwh_sum AS energy_kwh\nFROM energy_hourly_region\nWHERE bucket >= $__timeFrom() AND bucket < $__timeTo()\nORDER BY 1, 2"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "showPoints": "never",
+            "spanNulls": false
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "P2 - Daily network energy (kWh)",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "smartgrid-pg"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 9,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "smartgrid-pg"
+          },
+          "editorMode": "code",
+          "rawQuery": true,
+          "format": "time_series",
+          "rawSql": "-- panel: P2 (agg)\nSELECT time_bucket('1 day', bucket, 'Africa/Kigali') AS time, sum(energy_kwh_sum) AS energy_kwh\nFROM energy_15m_region\nWHERE bucket >= $__timeFrom() AND bucket < $__timeTo()\nGROUP BY 1 ORDER BY 1"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "bars",
+            "fillOpacity": 70,
+            "lineWidth": 1,
+            "showPoints": "never",
+            "spanNulls": false
+          },
+          "displayName": "Network energy"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": "timeseries",
+      "title": "P3 - Network energy per seven-day period from 1 Sep (kWh)",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "smartgrid-pg"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 9,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "smartgrid-pg"
+          },
+          "editorMode": "code",
+          "rawQuery": true,
+          "format": "time_series",
+          "rawSql": "-- panel: P3 (agg)\nSELECT time_bucket('7 days', bucket, TIMESTAMPTZ '2026-09-01 00:00+02') AS time,\n       sum(energy_kwh_sum) AS energy_kwh\nFROM energy_15m_region\nWHERE bucket >= $__timeFrom() AND bucket < $__timeTo()\nGROUP BY 1 ORDER BY 1"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "bars",
+            "fillOpacity": 70,
+            "lineWidth": 1,
+            "showPoints": "never",
+            "spanNulls": false
+          },
+          "displayName": "Network energy"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "timeseries",
+      "title": "P4 - Daily energy for meter $meter (kWh)",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "smartgrid-pg"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 17,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "smartgrid-pg"
+          },
+          "editorMode": "code",
+          "rawQuery": true,
+          "format": "time_series",
+          "rawSql": "-- panel: P4 (agg)\nSELECT bucket AS time, energy_kwh_sum AS energy_kwh\nFROM energy_daily_meter\nWHERE meter_id = $meter AND bucket >= $__timeFrom() AND bucket < $__timeTo()\nORDER BY 1"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "bars",
+            "fillOpacity": 70,
+            "lineWidth": 1,
+            "showPoints": "never",
+            "spanNulls": false
+          },
+          "displayName": "Meter energy"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "type": "table",
+      "title": "P5 - Completeness by region (%)",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "smartgrid-pg"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 17,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "smartgrid-pg"
+          },
+          "editorMode": "code",
+          "rawQuery": true,
+          "format": "table",
+          "rawSql": "-- panel: P5 (agg)\nWITH reg AS (SELECT region, count(*) AS meters FROM meters GROUP BY region),\n     obs AS (SELECT region, sum(reading_count) AS observed\n             FROM energy_15m_region\n             WHERE bucket >= $__timeFrom() AND bucket < $__timeTo()\n             GROUP BY region)\nSELECT reg.region,\n       (100.0 * coalesce(obs.observed, 0) / (reg.meters * (extract(epoch FROM ($__timeTo()::timestamptz - $__timeFrom()::timestamptz)) / 900)))::double precision AS completeness_pct,\n       coalesce(obs.observed, 0)::bigint AS readings,\n       (reg.meters * (extract(epoch FROM ($__timeTo()::timestamptz - $__timeFrom()::timestamptz)) / 900))::bigint AS planned\nFROM reg LEFT JOIN obs USING (region)\nORDER BY substring(reg.region FROM 8)::int"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 4
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "readings"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              },
+              {
+                "id": "decimals",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "planned"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              },
+              {
+                "id": "decimals",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true
+      }
+    }
+  ]
+}
